@@ -1,0 +1,71 @@
+<script>
+    function computerPlay()
+    {
+        var temp = Math.random();
+        if(temp<0.33)
+        {
+            return "Rock";
+        }
+        else if(temp<0.66)
+        {
+            return "Paper";
+        }
+        else
+        {
+            return "Scissors";
+        }
+    }
+
+    function playRound(playerSelection, computerSelection)
+    {
+        if(playerSelection == "Rock" && computerSelection == "Paper")
+        return "You Lose! Paper beats Rock";
+        else if(playerSelection=="Rock" && computerSelection=="Scissors")
+        return "You Win! Rock beats Scissors";
+        else if(playerSelection=="Paper" && computerSelection=="Rock")
+        return "You Win! Paper beats Rock";
+        else if(playerSelection=="Paper" && computerSelection=="Scissors")
+        return "You Lose! Scissors beats Paper";
+        else if(playerSelection=="Scissors" && computerSelection=="Paper")
+        return "You Win! Scissors beats Paper";
+        else if(playerSelection=="Scissors" && computerSelection=="Rock")
+        return "You Lose! Rock beats Scissors";
+        else
+        return "Play Again";
+        
+    }
+
+    function game()
+    {
+        let playerSelection;
+let computerSelection;    
+let playerScore = 0;
+let computerScore = 0;
+let result;
+for(let i=0;i<5;i++)
+{
+    playerSelection = window.prompt("Enter your choice: Rock Paper Scissors");
+    computerSelection = computerPlay();    
+    result = playRound(playerSelection, computerSelection);
+    console.log(result);
+    if(result.indexOf("Win") > -1)
+    playerScore++;
+    else if(result.indexOf("Lose") > -1)
+    computerScore++;
+    else
+    i--;
+
+}
+if(playerScore>computerScore)
+{
+    console.log("You WIN");
+}
+else
+{
+    console.log("You LOOSE");
+}
+
+    }
+
+    game();
+</script>
