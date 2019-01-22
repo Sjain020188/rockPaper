@@ -1,3 +1,59 @@
+<html>
+    <head>
+       <style>
+       li{
+           list-style:none;
+           display: inline;
+       }
+       #container
+       {
+           text-align:center;
+       }
+       body
+       {
+           background-color:#000;
+           color: #B32F24;
+       }
+       #result
+       {
+           font-size:20px;
+           color: #DAA520;
+       }
+
+       #scores
+       {
+           font-size:20px;
+           color: #DAA520;
+       }
+       
+       </style>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Let's play Rock, Paper and Scissor game</h1>
+            <h2>Please select any one option</h2>
+            <ul id="gamebuttons">
+                    <li> <button id="btn" value="Rock">Rock</button> </li>
+                    <li> <button id="btn" value="Paper">Paper</button> </li>
+                    <li> <button id="btn" value="Scissors">Scissors</button> </li>
+             </ul>
+             
+             <div id="scores">
+                 <h3>Scores</h3>
+             Player:  <span id=player>0</span>
+              Computer: <span id=computer>0</span>
+             </div>
+
+             <div id=result>
+
+                </div>
+        </div>  
+        
+     
+
+    </body>
+</html>
+
 <script>
     function computerPlay()
     {
@@ -18,6 +74,7 @@
 
     function playRound(playerSelection, computerSelection)
     {
+        
         if(playerSelection == "Rock" && computerSelection == "Paper")
         return "You Lose! Paper beats Rock";
         else if(playerSelection=="Rock" && computerSelection=="Scissors")
@@ -31,41 +88,57 @@
         else if(playerSelection=="Scissors" && computerSelection=="Rock")
         return "You Lose! Rock beats Scissors";
         else
-        return "Play Again";
+        return "Play Again! You both choose same option";
         
     }
-
-    function game()
+    let playerSelection;
+        let computerSelection;    
+        let playerScore = 0;
+        let computerScore = 0;
+        let result;
+       var btn = document.querySelector("#gamebuttons");
+  btn.addEventListener('click',(e) => 
     {
-        let playerSelection;
-let computerSelection;    
-let playerScore = 0;
-let computerScore = 0;
-let result;
-for(let i=0;i<5;i++)
-{
-    playerSelection = window.prompt("Enter your choice: Rock Paper Scissors");
-    computerSelection = computerPlay();    
-    result = playRound(playerSelection, computerSelection);
-    console.log(result);
-    if(result.indexOf("Win") > -1)
-    playerScore++;
-    else if(result.indexOf("Lose") > -1)
-    computerScore++;
-    else
-    i--;
+        
+       
+          console.log(e);        
+          playerSelection=e.target.value;
+          computerSelection = computerPlay();    
 
-}
-if(playerScore>computerScore)
-{
-    console.log("You WIN");
-}
-else
-{
-    console.log("You LOOSE");
-}
+          console.log("You Selected :"+ playerSelection);
+          console.log("Computer Selected :"+ computerSelection);
+          result = playRound(playerSelection, computerSelection);
+          const container = document.getElementById('container');
+          document.getElementById("result").innerHTML=result;
 
-    }
+          console.log(result);
+          if(result.indexOf("Win") > -1)
+          playerScore++;
+          else if(result.indexOf("Lose") > -1)
+          computerScore++;
+         
+            document.getElementById("player").innerHTML = playerScore;
+            document.getElementById("computer").innerHTML = computerScore;
+            if(playerScore==5 || computerScore==5)
+             {
+                 if(playerScore>computerScore)
+                        {
+                            document.getElementById("result").innerHTML="HURRAYYY You WIN the series. Let's Play again";
+                            playerScore=0;
+                            computerScore=0;
+                        }
+                 else
+                        {
+                            document.getElementById("result").innerHTML="OH NOOOO You LOOSE the series. Let's Play again";
+                        playerScore=0;
+                            computerScore=0;
+                        }
+             }
+        return result;
+    });
 
-    game();
+    
+
+
+
 </script>
